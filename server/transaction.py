@@ -4,11 +4,11 @@ class Transaction:
     def __init__(
         self, ttype=None, amount=None, currency=None, receiver=None, sender=None
     ):
-        self.ttype = ttype
-        self.amount = amount
-        self.currency = currency
-        self.receiver = receiver
-        self.sender = sender
+        self.ttype = ttype # transaction type. Transaction types can be viewed in defenitions.py
+        self.amount = amount # amount of money to get/send. Used in [get_cash, send_money] transaction types.
+        self.currency = currency # not used. will be added support of different currencies in future
+        self.receiver = receiver # card number of receiver. Used in [send_money] transaction type.
+        self.sender = sender # card number of user, that initiates request. Used in [get_cash, send_money, check_balance] transaction.
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)

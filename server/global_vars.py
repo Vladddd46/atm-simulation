@@ -10,6 +10,5 @@ DEBUG = True
 
 DB_NAME = "db.json"
 
+# database will be filled from this file. Only if DEBUG is True
 TEST_DATA = "test_data.json"
-
-SENDBACK_PORT = 5005
