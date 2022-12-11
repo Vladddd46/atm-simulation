@@ -6,5 +6,8 @@ clear:
 	rm -rf ./server/__pycache__
 	rm -rf ./server/__pycache__
 	rm -rf ./client/__pycache__
-	rm -rf ./tests/__pycache__
-	rm -rf ./tests/.pytest_cache
+	rm -rf .DS_Store
+	rm -rf ./client/.DS_Store
+	rm -rf ./server/.DS_Store
+
+
