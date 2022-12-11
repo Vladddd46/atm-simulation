@@ -111,8 +111,11 @@ class Gui:
 			self.render_pincode_enter_screen(pincode_lbl_text=display_pin)
 		elif btn_text == "ENTER":
 			if self.user_card["pincode"] == hashlib.md5(self.pin_input.encode()).hexdigest():
-				port = int(sys.argv[1])
-				com = Communicator(ip="127.0.0.1", port=port)
+				if len(sys.argv) < 2:
+					print("Invalid syntax: python3 gui.py <port:int>")
+					self.__exit()
+					exit(1)
+				com = Communicator(ip="127.0.0.1", port=sys.argv[1])
 				self.auth_user = AuthorizedUser(com, self.user_card["number"], self.user_card["cvv"], self.user_card["date"])
 				self.__clear_screen()
 				self.render_options_screen()
