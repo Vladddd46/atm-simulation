@@ -27,7 +27,7 @@ class TransActionsHandler:
 		data = self.get_data_from_db(DB_NAME)
 		for card in data.values():
 			if card["card_num"] == card_num:
-				logger.log("INFO", f"Ceck balance {card_num}")
+				logger.log("INFO", f"Check balance {card_num}")
 				return card["balance"]
 		return Error("No such card!")
 
@@ -43,6 +43,7 @@ class TransActionsHandler:
 		for card in data.values():
 			if card["card_num"] == card_num:
 				if card["balance"] < amount:
+					logger.log("INFO", f"Not enough money on balance {card_num}")
 					return Error("Not enough money on balance")
 				else:
 					card["balance"] = card["balance"] - amount
@@ -50,6 +51,7 @@ class TransActionsHandler:
 						file.write(json.dumps(data, sort_keys=True))
 					logger.log("INFO", f"Get cash {card_num} amount={amount}")
 					return card["balance"]
+		logger.log("INFO", f"Card is not supported! {card_num}")
 		return Error("Card is not supported!")
 
 	def send_money(self, sender_card_num, receiver_card_num, amount):
@@ -67,10 +69,12 @@ class TransActionsHandler:
 				receiver_exists = True
 				break
 		if not receiver_exists:
+			logger.log("INFO", f"No such card! {receiver_card_num}")
 			return Error("No such card!")
 		for card in data.values():
 			if card["card_num"] == sender_card_num:
 				if card["balance"] < amount:
+					logger.log("INFO", f"Not enough money to send on balance {sender_card_num} - {receiver_card_num} :{amount}")
 					return Error("Not enough money to send on balance")
 				else:
 					card["balance"] = card["balance"] - amount
@@ -84,6 +88,7 @@ class TransActionsHandler:
 					f"Sending money {sender_card_num} to {receiver_card_num} | amount={amount}",
 				)
 				return card["balance"]
+		logger.log("INFO", f"Card is not supported! {sender_card_num} - {receiver_card_num} :{amount}")
 		return Error("Card is not supported!")
 
 	def handle_pending_requests(self):

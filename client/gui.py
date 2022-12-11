@@ -3,7 +3,8 @@ from tkinter import filedialog
 from PIL import ImageTk, Image
 import json
 import hashlib
-from user import AuthorizedUser, Communicator
+from user import AuthorizedUser
+from communicator import Communicator
 
 class ScreenType:
 	entry = 0
