@@ -5,6 +5,7 @@ import json
 import hashlib
 from user import AuthorizedUser
 from communicator import Communicator
+import sys
 
 class Gui:
 
